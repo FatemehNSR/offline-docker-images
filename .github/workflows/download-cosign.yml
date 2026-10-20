@@ -1,0 +1,31 @@
+
+name: Download Cosign Docker Image
+
+on:
+  workflow_dispatch:
+
+jobs:
+  export-cosign:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Pull Cosign Image
+        run: |
+          docker pull --platform linux/amd64 \
+            ghcr.io/sigstore/cosign/cosign:v2.6.5
+
+      - name: Export Docker Image to TAR
+        run: |
+          docker save \
+            -o cosign-v2.6.5.tar \
+            ghcr.io/sigstore/cosign/cosign:v2.6.5
+
+          sha256sum cosign-v2.6.5.tar
+
+      - name: Upload TAR for Browser Download
+        uses: actions/upload-artifact@v7
+        with:
+          name: cosign-v2.6.5
+          path: cosign-v2.6.5.tar
+          archive: false
+          retention-days: 3
