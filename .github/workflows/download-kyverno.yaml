@@ -1,12 +1,9 @@
 name: Download kyverno Docker Image
-
 on:
   workflow_dispatch:
-
 jobs:
   export-kyverno:
     runs-on: ubuntu-24.04
-
     steps:
       - name: Pull and Export the kyverno Images
         run: |
@@ -16,7 +13,6 @@ jobs:
             docker save -o "$img.tar" "reg.kyverno.io/kyverno/$img:v1.16.2"
           done
           ls -lh *.tar
-
       - name: Upload TAR for Browser Download
         uses: actions/upload-artifact@v4
         with:
