@@ -1,4 +1,4 @@
-name: Download kyverno Docker Image
+name: Download kyverno Docker Images
 on:
   workflow_dispatch:
 jobs:
