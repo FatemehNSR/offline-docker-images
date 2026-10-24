@@ -10,10 +10,12 @@ jobs:
     steps:
       - name: Pull and Export the kyverno Images
         run: |
+          set -e
           for img in kyverno kyvernopre background-controller cleanup-controller reports-controller; do
-            docker pull reg.kyverno.io/kyverno/$img:v1.16.2
-            docker save -o "$img.tar" reg.kyverno.io/kyverno/$img:v1.16.2
+            docker pull "reg.kyverno.io/kyverno/$img:v1.16.2"
+            docker save -o "$img.tar" "reg.kyverno.io/kyverno/$img:v1.16.2"
           done
+          ls -lh *.tar
 
       - name: Upload TAR for Browser Download
         uses: actions/upload-artifact@v4
